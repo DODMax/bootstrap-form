@@ -212,7 +212,7 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function staticField($name, $label = null, $value = null, array $options = [])
+    public function staticField($name, $label = null, $value = null, array $options = [], $help = '')
     {
         $options = array_merge(['class' => 'form-control-static'], $options);
 
@@ -220,7 +220,7 @@ class BootstrapForm
         $inputElement = '<p' . $this->html->attributes($options) . '>' . e($value) . '</p>';
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : []; 
-        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
+        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getHelpContent($help) . $this->getFieldError($name) . '</div>';
 
         return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
     }
@@ -232,11 +232,12 @@ class BootstrapForm
      * @param  string  $label
      * @param  string  $value
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function text($name, $label = null, $value = null, array $options = [])
+    public function text($name, $label = null, $value = null, array $options = [], $help = '')
     {
-        return $this->input('text', $name, $label, $value, $options);
+        return $this->input('text', $name, $label, $value, $options, $help);
     }
 
     /**
@@ -246,11 +247,12 @@ class BootstrapForm
      * @param  string  $label
      * @param  string  $value
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function email($name = 'email', $label = null, $value = null, array $options = [])
+    public function email($name = 'email', $label = null, $value = null, array $options = [], $help = '')
     {
-        return $this->input('email', $name, $label, $value, $options);
+        return $this->input('email', $name, $label, $value, $options, $help);
     }
 
     /**
@@ -260,11 +262,12 @@ class BootstrapForm
      * @param  string  $label
      * @param  string  $value
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function url($name, $label = null, $value = null, array $options = [])
+    public function url($name, $label = null, $value = null, array $options = [], $help = '')
     {
-        return $this->input('url', $name, $label, $value, $options);
+        return $this->input('url', $name, $label, $value, $options, $help);
     }
 
     /**
@@ -274,11 +277,12 @@ class BootstrapForm
      * @param  string  $label
      * @param  string  $value
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function tel($name, $label = null, $value = null, array $options = [])
+    public function tel($name, $label = null, $value = null, array $options = [], $help = '')
     {
-        return $this->input('tel', $name, $label, $value, $options);
+        return $this->input('tel', $name, $label, $value, $options, $help);
     }
 
     /**
@@ -288,11 +292,12 @@ class BootstrapForm
      * @param  string  $label
      * @param  string  $value
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function number($name, $label = null, $value = null, array $options = [])
+    public function number($name, $label = null, $value = null, array $options = [], $help = '')
     {
-        return $this->input('number', $name, $label, $value, $options);
+        return $this->input('number', $name, $label, $value, $options, $help);
     }
 
     /**
@@ -302,11 +307,12 @@ class BootstrapForm
      * @param  string  $label
      * @param  string  $value
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function date($name, $label = null, $value = null, array $options = [])
+    public function date($name, $label = null, $value = null, array $options = [], $help = '')
     {
-        return $this->input('date', $name, $label, $value, $options);
+        return $this->input('date', $name, $label, $value, $options, $help);
     }
 
     /**
@@ -316,11 +322,12 @@ class BootstrapForm
      * @param  string  $label
      * @param  string  $value
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function textarea($name, $label = null, $value = null, array $options = [])
+    public function textarea($name, $label = null, $value = null, array $options = [], $help = '')
     {
-        return $this->input('textarea', $name, $label, $value, $options);
+        return $this->input('textarea', $name, $label, $value, $options, $help);
     }
 
     /**
@@ -329,11 +336,12 @@ class BootstrapForm
      * @param  string  $name
      * @param  string  $label
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function password($name = 'password', $label = null, array $options = [])
+    public function password($name = 'password', $label = null, array $options = [], $help = '')
     {
-        return $this->input('password', $name, $label, null, $options);
+        return $this->input('password', $name, $label, null, $options, $help);
     }
 
     /**
@@ -344,14 +352,15 @@ class BootstrapForm
      * @param  string   $value
      * @param  bool     $checked
      * @param  array    $options
+     * @param  string   $help
      * @return string
      */
-    public function checkbox($name, $label = null, $value = 1, $checked = null, array $options = [])
+    public function checkbox($name, $label = null, $value = 1, $checked = null, array $options = [], $help = '')
     {
-        $inputElement = $this->checkboxElement($name, $label, $value, $checked, false, $options);
+        $inputElement = $this->checkboxElement($name, $label, $value, $checked, false, $options, $help);
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => implode(' ', [$this->getLeftColumnOffsetClass(), $this->getRightColumnClass()])] : [];
-        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . '</div>';
+        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getHelpContent($help) . '</div>';
 
         return $this->getFormGroup(null, $wrapperElement);
     }
@@ -388,9 +397,10 @@ class BootstrapForm
      * @param  array   $checkedValues
      * @param  bool    $inline
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function checkboxes($name, $label = null, $choices = [], $checkedValues = [], $inline = false, array $options = [])
+    public function checkboxes($name, $label = null, $choices = [], $checkedValues = [], $inline = false, array $options = [], $help = '')
     {
         $elements = '';
 
@@ -401,7 +411,7 @@ class BootstrapForm
         }
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
-        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $elements . $this->getFieldError($name) . '</div>';
+        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $elements . $this->getHelpContent($help) . $this->getFieldError($name) . '</div>';
 
         return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
     }
@@ -414,14 +424,15 @@ class BootstrapForm
      * @param  string  $value
      * @param  bool    $checked
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function radio($name, $label = null, $value = null, $checked = null, array $options = [])
+    public function radio($name, $label = null, $value = null, $checked = null, array $options = [], $help = '')
     {
-        $inputElement = $this->radioElement($name, $label, $value, $checked, false, $options);
+        $inputElement = $this->radioElement($name, $label, $value, $checked, false, $options, $help);
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => implode(' ', [$this->getLeftColumnOffsetClass(), $this->getRightColumnClass()])] : [];
-        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . '</div>';
+        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getHelpContent($help) . '</div>';
 
         return $this->getFormGroup(null, $wrapperElement);
     }
@@ -459,9 +470,10 @@ class BootstrapForm
      * @param  string  $checkedValue
      * @param  bool    $inline
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function radios($name, $label = null, $choices = [], $checkedValue = null, $inline = false, array $options = [])
+    public function radios($name, $label = null, $choices = [], $checkedValue = null, $inline = false, array $options = [], $help = '')
     {
         $elements = '';
 
@@ -472,7 +484,7 @@ class BootstrapForm
         }
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
-        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $elements . $this->getFieldError($name) . '</div>';
+        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $elements . $this->getHelpContent($help) . $this->getFieldError($name) . '</div>';
 
         return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
     }
@@ -497,16 +509,17 @@ class BootstrapForm
      *
      * @param  string  $value
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function submit($value = null, array $options = [])
+    public function submit($value = null, array $options = [], $help = '')
     {
         $options = array_merge(['class' => 'btn btn-primary'], $options);
 
         $inputElement = $this->form->submit($value, $options);
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => implode(' ', [$this->getLeftColumnOffsetClass(), $this->getRightColumnClass()])] : [];
-        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>'. $inputElement . '</div>';
+        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>'. $inputElement . $this->getHelpContent($help) . '</div>';
 
         return $this->getFormGroup(null, $wrapperElement);
     }
@@ -517,9 +530,10 @@ class BootstrapForm
      * @param  string  $name
      * @param  string  $label
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function file($name, $label = null, array $options = [])
+    public function file($name, $label = null, array $options = [], $help = '')
     {
         $label = $this->getLabelTitle($label, $name);
 
@@ -529,7 +543,7 @@ class BootstrapForm
         $inputElement = $this->form->input('file', $name, null, $options);
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
-        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
+        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getHelpContent($help) . $this->getFieldError($name) . '</div>';
 
         return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
     }
@@ -542,9 +556,10 @@ class BootstrapForm
      * @param  string  $label
      * @param  string  $value
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function input($type, $name, $label = null, $value = null, array $options = [])
+    public function input($type, $name, $label = null, $value = null, array $options = [], $help = '')
     {
         $label = $this->getLabelTitle($label, $name);
 
@@ -552,7 +567,7 @@ class BootstrapForm
         $inputElement = $type === 'password' ? $this->form->password($name, $options) : $this->form->{$type}($name, $value, $options);
         
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
-        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
+        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getHelpContent($help) . $this->getFieldError($name) . '</div>';
 
         return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
     }
@@ -578,9 +593,10 @@ class BootstrapForm
      * @param  array   $list
      * @param  string  $selected
      * @param  array   $options
+     * @param  string  $help
      * @return string
      */
-    public function select($name, $label = null, $list = [], $selected = null, array $options = [])
+    public function select($name, $label = null, $list = [], $selected = null, array $options = [], $help = '')
     {
         $label = $this->getLabelTitle($label, $name);
 
@@ -588,7 +604,7 @@ class BootstrapForm
         $inputElement = $this->form->select($name, $list, $selected, $options);
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
-        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
+        $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getHelpContent($help) . $this->getFieldError($name) . '</div>';
 
         return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
     }
@@ -862,5 +878,24 @@ class BootstrapForm
     protected function getFieldErrorClass($field, $class = 'has-error')
     {
         return $this->getFieldError($field) ? $class : null;
+    }
+
+    /**
+     * Get the help container with given text as content
+     * @param string $content
+     * @return string
+     */
+    protected function getHelpContent($content = '')
+    {
+        return $content ? '<div class="' . $this->getHelpTipClass() . '"><small>' . $content . '</small></div>' : '';
+    }
+
+    /**
+     * Get the class name for the help container
+     * @return string
+     */
+    public function getHelpTipClass()
+    {
+        return $this->config->get('bootstrap_form.help_class') ?: 'control-help';
     }
 }

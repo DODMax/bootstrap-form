@@ -209,3 +209,11 @@ BootForm::submit('Login');
 // Pretty simple.
 BootForm::close();
 ```
+
+
+### Displaying help
+If specified, the last parameter of a method will display a help text below the field.
+```php
+Bootform::text('username', null, null, [], 'This field is required')
+```
+Include 'help_as_a_tooltip.css' file if you wish to turn help lines into hover tooltips
