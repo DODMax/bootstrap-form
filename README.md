@@ -131,7 +131,7 @@ BootForm::horizontal();
 If you want to change the columns for a form for a deviation from the settings in your configuration file, you can also set them through the `$options` array.
 
 ```php
-BootForm::open(['left_column_class' => 'col-md-2', 'left_column_offset_clsas' => 'col-md-offset-2', 'right_column_class' => 'col-md-10']);
+BootForm::open(['left_column_class' => 'col-md-2', 'left_column_offset_class' => 'col-md-offset-2', 'right_column_class' => 'col-md-10']);
 ```
 
 ### Text inputs
@@ -209,3 +209,30 @@ BootForm::submit('Login');
 // Pretty simple.
 BootForm::close();
 ```
+
+### Labels
+
+#### Hide Labels
+
+You may hide an element's label by setting the the value to `false`.
+
+```php
+// An input with no label.
+BootForm::text('username', false);
+```
+
+#### Labels with HTML
+
+To include HTML code inside a label:
+
+```php
+// A label with HTML code using array notation
+BootForm::text('username', ['html' => 'Username <span class="required">*</span>']);
+
+// A label with HTML code using HtmlString object
+BootForm::text('username', new Illuminate\Support\HtmlString('Username <span class="required">*</span>'));
+```
+
+### Help Text
+
+You may pass a `help_text` option to any field to have [Bootstrap Help Text](https://getbootstrap.com/css/#forms-help-text) appended to the rendered form group.
